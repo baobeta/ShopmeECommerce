@@ -71,13 +71,73 @@
 		<table  class="table table-bordered table-striped table-hover table-reponsive-xl">
 			<thead class="thead-dark" >
 				<tr>
-					<th>User ID</th>
-					<th>Photos</th>	
-					<th>Email</th>			
-					<th>First Name</th>
-					<th>Last Name</th>
+					<th>
+						<a th:if="${!sortField.equals('id')}" class="text-white"
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${sortDir} }">
+							User ID
+						</a>
+						<a th:if="${sortField.equals('id')}" class="text-white"
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reserveSortDir} }">
+							User ID
+						</a>
+						<span th:if="${sortField.equals('id')}"
+							th:class="${sortDir.equals('asc') ? 'fas fa-sort-up' : 'fas fa-sort-down'}" ></span>
+					
+					</th>
+					<th>
+					Photos
+					</th>	
+					<th>
+						<a th:if="${!sortField.equals('email')}" class="text-white"
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${sortDir} }">
+							Email
+						</a>
+						<a th:if="${sortField.equals('email')}" class="text-white"
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reserveSortDir} }">
+							Email
+						</a>
+						<span th:if="${sortField.equals('email')}"
+							th:class="${sortDir.equals('asc') ? 'fas fa-sort-up' : 'fas fa-sort-down'}" ></span>
+					
+					</th>			
+					<th>
+						<a th:if="${!sortField.equals('firstName')}" class="text-white"
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${sortDir} }">
+							First Name
+						</a>
+						<a th:if="${sortField.equals('firstName')}" class="text-white"
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reserveSortDir} }">
+							First Name
+						</a>
+						<span th:if="${sortField.equals('firstName')}"
+							th:class="${sortDir.equals('asc') ? 'fas fa-sort-up' : 'fas fa-sort-down'}" ></span>
+					</th>
+					<th>
+						<a th:if="${!sortField.equals('lastName')}" class="text-white"
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${sortDir} }">
+							Last Name
+						</a>
+						<a th:if="${sortField.equals('lastName')}" class="text-white"
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${reserveSortDir} }">
+							Last Name
+						</a>
+						<span th:if="${sortField.equals('lastName')}"
+							th:class="${sortDir.equals('asc') ? 'fas fa-sort-up' : 'fas fa-sort-down'}" ></span>
+						
+					</th>
 					<th>Role</th>
-					<th>Enable</th>
+					<th>
+						<a th:if="${!sortField.equals('enabled')}" class="text-white"
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${sortDir} }">
+							Enable
+						</a>
+						<a th:if="${sortField.equals('enabled')}" class="text-white"
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${reserveSortDir} }">
+							Enable
+						</a>
+						<span th:if="${sortField.equals('enabled')}"
+							th:class="${sortDir.equals('asc') ? 'fas fa-sort-up' : 'fas fa-sort-down'}" ></span>
+					</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -131,22 +191,22 @@
 		<nav >
 		  <ul class="pagination justify-content-center">
 		  	<li th:class="${currentPage >1 ? 'page-item' : 'page-item disabled'}" >
-		  		<a class="page-link" th:href="@{/users/page/1}">First</a>
+		  		<a class="page-link" th:href="@{'/users/page/1?sortField=' +${sortField} +'&sortDir=' + ${sortDir}}">First</a>
 		  	</li>
 		    <li class="page-item" th:class="${currentPage >1 ? 'page-item' : 'page-item disabled'}" >
-		    	<a class="page-link" th:href="@{'/users/page/' + ${currentPage-1}}">Previous</a>
+		    	<a class="page-link" th:href="@{'/users/page/' + ${currentPage-1}+ '?sortField=' +${sortField} +'&sortDir=' + ${sortDir}}">Previous</a>
 		    </li>
 		    
 		    <li th:class="${currentPage !=i ? 'page-item' : 'page-item active'}" 
 		   		th:each="i : ${#numbers.sequence(1,totalPages)}">
-		    	<a class="page-link"  th:href="@{'/users/page/' + ${i}}">[[${i}]]</a>
+		    	<a class="page-link"  th:href="@{'/users/page/' + ${i}+'?sortField=' +${sortField} +'&sortDir=' + ${sortDir}}">[[${i}]]</a>
 		    </li>
 		    
 		    <li th:class="${currentPage < totalPage ? 'page-item' : 'page-item disabled'}">
-		    	<a class="page-link" th:href="@{'/users/page/' + ${currentPage+1}}">Next</a>
+		    	<a class="page-link" th:href="@{'/users/page/' + ${currentPage+1} + '?sortField=' +${sortField} +'&sortDir=' + ${sortDir}}">Next</a>
 		    </li>
 		    <li th:class="${currentPage < totalPage ? 'page-item' : 'page-item disabled'}">
-		    	<a class="page-link" th:href="@{'/users/page/' + ${totalPages}}">Last</a>
+		    	<a class="page-link" th:href="@{'/users/page/' + ${totalPages} + '?sortField=' +${sortField} +'&sortDir=' + ${sortDir}}">Last</a>
 		    </li>
 		  </ul>
 		</nav>
