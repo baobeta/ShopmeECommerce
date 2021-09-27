@@ -76,7 +76,7 @@
 			&nbsp;&nbsp;
 			<input type="submit" value="Search" class="btn btn-primary"/>
 			&nbsp;&nbsp;
-			<input type="button" value="Clear" class="btn btn-secondary"/>
+			<input type="button" value="Clear" onclick="clearFilter()" class="btn btn-secondary" />
 			
 		</form>
 	</div>
@@ -87,11 +87,11 @@
 				<tr>
 					<th>
 						<a th:if="${!sortField.equals('id')}" class="text-white"
-							th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${sortDir} }">
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : '' }}">
 							User ID
 						</a>
 						<a th:if="${sortField.equals('id')}" class="text-white"
-							th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reserveSortDir} }">
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reserveSortDir} + ${keyword != null ? '&keyword=' + keyword : '' }} ">
 							User ID
 						</a>
 						<span th:if="${sortField.equals('id')}"
@@ -103,11 +103,11 @@
 					</th>	
 					<th>
 						<a th:if="${!sortField.equals('email')}" class="text-white"
-							th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${sortDir} }">
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${sortDir}+ ${keyword != null ? '&keyword=' + keyword : '' } }">
 							Email
 						</a>
 						<a th:if="${sortField.equals('email')}" class="text-white"
-							th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reserveSortDir} }">
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reserveSortDir}+ ${keyword != null ? '&keyword=' + keyword : '' } }">
 							Email
 						</a>
 						<span th:if="${sortField.equals('email')}"
@@ -116,11 +116,11 @@
 					</th>			
 					<th>
 						<a th:if="${!sortField.equals('firstName')}" class="text-white"
-							th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${sortDir} }">
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : '' }}">
 							First Name
 						</a>
 						<a th:if="${sortField.equals('firstName')}" class="text-white"
-							th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reserveSortDir} }">
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reserveSortDir}+ ${keyword != null ? '&keyword=' + keyword : '' } }">
 							First Name
 						</a>
 						<span th:if="${sortField.equals('firstName')}"
@@ -128,11 +128,11 @@
 					</th>
 					<th>
 						<a th:if="${!sortField.equals('lastName')}" class="text-white"
-							th:href="@{'/users/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${sortDir} }">
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : '' }}">
 							Last Name
 						</a>
 						<a th:if="${sortField.equals('lastName')}" class="text-white"
-							th:href="@{'/users/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${reserveSortDir} }">
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${reserveSortDir} + ${keyword != null ? '&keyword=' + keyword : '' } }">
 							Last Name
 						</a>
 						<span th:if="${sortField.equals('lastName')}"
@@ -142,11 +142,11 @@
 					<th>Role</th>
 					<th>
 						<a th:if="${!sortField.equals('enabled')}" class="text-white"
-							th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${sortDir} }">
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : '' } }">
 							Enable
 						</a>
 						<a th:if="${sortField.equals('enabled')}" class="text-white"
-							th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${reserveSortDir} }">
+							th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${reserveSortDir} + ${keyword != null ? '&keyword=' + keyword : '' } }">
 							Enable
 						</a>
 						<span th:if="${sortField.equals('enabled')}"
@@ -201,7 +201,7 @@
 		<span>No users found </span>	
 	</div>
 	
-	<div th:if="${totalPages >1}">
+	<div th:if="${totalPages > 1}">
 		<nav >
 		  <ul class="pagination justify-content-center">
 		  	<li th:class="${currentPage >1 ? 'page-item' : 'page-item disabled'}" >
@@ -264,7 +264,14 @@
 			$("#confirmText").text("Are you sure you want to delete this ID "+ userId+" ?");
 			$("#confirmModal").modal();
 		});
+		
+
 	});
+	
+	function clearFilter() {
+			
+			window.location ="[[@{/users}]]";
+	}
 </script>	
 </body>
 </html>
