@@ -10,6 +10,10 @@ public class MainController {
 	public String viewPageHome() {
 		return "index";
 	}
+	@GetMapping("/login")
+	public String viewPageLogin() {
+		return "login";
+	}
 	
 
 }
