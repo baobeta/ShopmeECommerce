@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	
 	public DaoAuthenticationProvider authenticationProvider() {
+
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 		authProvider.setUserDetailsService(userDetailService());
 		authProvider.setPasswordEncoder(passwordEncoder());
@@ -37,26 +38,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 	}
 	
-	
-	
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
-		super.configure(auth);
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest()
-		.authenticated()
-		.and()
-		.formLogin()
-			.loginPage("/login")
-			.usernameParameter("email")
-			.permitAll();
+		http.authorizeRequests()
+				.anyRequest()
+				.authenticated()
+				.and()
+				.formLogin()
+					.loginPage("/login")
+					.usernameParameter("email")
+					.permitAll();
 	}
 
+
+	// Config ignore path image, js, webjars
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/images/**","/js/**","/webjars/**");

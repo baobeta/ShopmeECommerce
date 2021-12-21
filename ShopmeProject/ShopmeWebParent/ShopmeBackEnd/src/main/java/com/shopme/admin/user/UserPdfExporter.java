@@ -22,12 +22,12 @@ public class UserPdfExporter  extends AbstractExporter{
 	
 	public void export (List<User> listUsers, HttpServletResponse response) throws IOException {
 		super.setReponseHeader(response,"application/pdf",".pdf");
-		
+		// create document
 		Document document = new Document(PageSize.A4);
 		PdfWriter.getInstance(document, response.getOutputStream());
 		
 		document.open();
-		
+		// create font
 		Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 		font.setSize(18);
 		font.setColor(Color.BLUE);

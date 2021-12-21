@@ -13,12 +13,17 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadUtil {
 	public static void saveFile(String uploadDir, String fileName, 
 			MultipartFile multipartFile) throws IOException {
+
+
 		Path uploadPath = Paths.get(uploadDir);
-		
+		// check path upload exist
 		if(!Files.exists(uploadPath)) {
 			Files.createDirectories(uploadPath);
 		}
+
+
 		try (InputStream inputStream = multipartFile.getInputStream()) {
+			// upload file
 			Path filePath = uploadPath.resolve(fileName);
 			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
 			
@@ -26,6 +31,8 @@ public class FileUploadUtil {
 			throw new IOException("Could not save file"  + fileName, e);
 		}
 	}
+
+	// clean Directory before upload
 	public static void cleanDir(String dir) {
 		Path dirPath = Paths.get(dir);
 		try {

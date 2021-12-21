@@ -26,37 +26,35 @@ public class ShopmeUserDetails implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Set<Role> roles =user.getRoles();
-		
+
 		List<SimpleGrantedAuthority> authories = new ArrayList<>();
+		//add role to granted authority
 		for(Role role : roles) {
 			authories.add(new SimpleGrantedAuthority(role.getName()));
 		}
-		
-		
+
 		return authories;
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
+		// return password
 		return user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
+		//return email
 		return user.getEmail();
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		
 		return true;
 	}
 
