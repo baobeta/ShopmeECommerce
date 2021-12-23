@@ -1,10 +1,12 @@
-package com.shopme.admin.user;
+package com.shopme.admin.user.controller;
 
 import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.shopme.admin.user.UserNotFoundException;
+import com.shopme.admin.user.UserService;
 import com.shopme.admin.user.export.UserCsvExporter;
 import com.shopme.admin.user.export.UserExcelExporter;
 import com.shopme.admin.user.export.UserPdfExporter;
@@ -72,7 +74,7 @@ public class UserController {
 		model.addAttribute("keyword",keyword);
 		model.addAttribute("listUsers",listUsers);
 		
-		return "users";
+		return "users/users";
 	}
 	
 	
@@ -87,7 +89,7 @@ public class UserController {
 		model.addAttribute("user",user);
 		model.addAttribute("listRoles",listRoles);
 		model.addAttribute("pageTitle","Create New User");
-		return "user_form";
+		return "users/user_form";
 	}
 
 
@@ -134,7 +136,7 @@ public class UserController {
 			model.addAttribute("user", user);
 			model.addAttribute("pageTitle","Edit User (ID: " + id+ ")");
 			model.addAttribute("listRoles",listRoles);
-			return "user_form";
+			return "users/user_form";
 			
 		} catch (UserNotFoundException ex) {
 			redirectAttributes.addFlashAttribute("message",ex.getMessage());

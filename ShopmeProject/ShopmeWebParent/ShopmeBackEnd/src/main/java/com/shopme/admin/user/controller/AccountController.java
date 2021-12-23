@@ -1,8 +1,9 @@
-package com.shopme.admin.user;
+package com.shopme.admin.user.controller;
 
 
 import com.shopme.admin.FileUploadUtil;
 import com.shopme.admin.security.ShopmeUserDetails;
+import com.shopme.admin.user.UserService;
 import com.shopme.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,7 +28,7 @@ public class AccountController {
         String email = loggeduser.getUsername();
         User user =userService.getUserByEmail(email);
         model.addAttribute("user",user);
-        return "account_form";
+        return "users/account_form";
 
     }
 
