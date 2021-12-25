@@ -18,12 +18,12 @@
 		<p> Shopme Control Panel -Copyright &copy; Shopme </p>
 	</div>
 
-	<th th:fragment="column_link(fieldName, columnLabel,removeTag)" th:remove="${removeTag}">
-		<a class="text-white"  th:href="@{'/users/page/' + ${currentPage} + '?sortField='+ ${fieldName} +'&sortDir=' + ${!sortField.equals(fieldName) ? sortDir : reserveSortDir } + ${keyword != null ? '&keyword=' + keyword : '' }}">[[${columnLabel}]]</a>
+	<th th:fragment="column_link(fieldName, columnLabel,removeTag,controller)" th:remove="${removeTag}">
+		<a class="text-white"  th:href="@{'/'+${controller}+'/page/' + ${currentPage} + '?sortField='+ ${fieldName} +'&sortDir=' + ${!sortField.equals(fieldName) ? sortDir : reserveSortDir } + ${keyword != null ? '&keyword=' + keyword : '' }}">[[${columnLabel}]]</a>
 		<span th:if="${sortField.equals(fieldName)}" th:class="${sortDir.equals('asc') ? 'fas fa-sort-up' : 'fas fa-sort-down'}" ></span>
 	</th>
 
-	<a th:fragment="page_link(pageNum,label)" class="page-link" th:href="@{'/users/page/'+${pageNum}+'?sortField=' +${sortField} +'&sortDir=' + ${sortDir}}">[[${label}]]</a>
+	<a th:fragment="page_link(pageNum,label,controller)" class="page-link" th:href="@{'/'+${controller}+'/page/'+${pageNum}+'?sortField=' +${sortField} +'&sortDir=' + ${sortDir}}">[[${label}]]</a>
 
 	<div th:fragment="user_photos" th:remove="tag">
 		<span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
@@ -50,6 +50,18 @@
 		   th:href="@{'/users/delete/' + ${user.id}}"
 		   th:userId="${user.id}"
 		   title="Delete this user"></a>
+	</div>
+
+	<div th:fragment="category_status" th:remove="tag">
+		<a th:if="${category.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+		   th:href="@{'/categories/' + ${category.id} + '/enabled/false'}"
+		   title="Disable this category"
+		></a>
+
+		<a th:if="${category.enabled == false}" class="fas fa-circle fa-2x icon-dark"
+		   th:href="@{'/categories/' + ${category.id} + '/enabled/true'}"
+		   title="Enable this category"
+		></a>
 	</div>
 </body>
 </html>

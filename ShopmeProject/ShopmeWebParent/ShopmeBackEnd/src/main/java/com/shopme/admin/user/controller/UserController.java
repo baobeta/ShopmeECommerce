@@ -45,10 +45,6 @@ public class UserController {
 			@Param("sortDir") String sortDir,
 			@Param("keyword") String keyword) {
 
-
-//		System.out.println("Sort Field:  " + sortField);
-//		System.out.println("Sort Order:  " + sortDir);
-
 		// pagination
 		Page<User> page = service.listByPage(pageNum, sortField, sortDir,keyword);
 		List<User> listUsers = page.getContent();
@@ -164,7 +160,7 @@ public class UserController {
 	@GetMapping("/users/{id}/enabled/{status}")
 	public String updateUserEnabledStatus(@PathVariable("id") Integer id,
 			@PathVariable("status") boolean enabled,RedirectAttributes redirectAttributes) {
-		 service.updateUserEnabledStaus(id, enabled);
+		 service.updateUserEnabledStatus(id, enabled);
 		 String status = enabled ? "enabled" : "disabled";
 		 String message ="The user ID "+ id +" has been " +status;
 		 redirectAttributes.addFlashAttribute("message",message);

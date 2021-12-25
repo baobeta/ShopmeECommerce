@@ -32,9 +32,11 @@ public class UserService {
 	public User getUserByEmail(String email) {
 		return userRepo.getUserByEmail(email);
 	}
+
 	public List<User> listAll() {
 		return (List<User>) userRepo.findAll(Sort.by("firstName").ascending());
 	}
+
 	public Page<User> listByPage(int pageNum, String sortField, String sortDir, String keyword ) {
 		Sort sort = Sort.by(sortField);
 		
@@ -119,7 +121,7 @@ public class UserService {
 		}
 		userRepo.deleteById(id);
 	}
-	public void updateUserEnabledStaus(Integer id, boolean enabled) {
+	public void updateUserEnabledStatus(Integer id, boolean enabled) {
 		userRepo.updateEnabledStatus(id, enabled);
 	}
 }
