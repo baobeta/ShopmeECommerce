@@ -11,7 +11,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -61,6 +64,59 @@ public class CategoryService {
 
     }
 
+    public List<Category> listCategoriesUsedInForm() {
+        List<Category> categoriesUsedInForm = new ArrayList<>();
+
+        Iterable<Category> categoriesInDB = categoryRepo.findAll();
+
+        for (Category category : categoriesInDB) {
+            if (category.getParent() == null) {
+                categoriesUsedInForm.add(Category.copyIdAndName(category));
+
+                Set<Category> children = category.getChildren();
+
+                for (Category subCategory : children) {
+                    String name = "--" + subCategory.getName();
+                    categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getId(), name));
+
+                    listChildren(categoriesUsedInForm, subCategory, 1);
+                }
+            }
+        }
+
+        return categoriesUsedInForm;
+    }
 
 
+    public boolean isNameUnique(Integer id, String name) {
+        Category category = categoryRepo.findCategoryByName(name);
+        if(category == null) return true;
+        boolean isCreateNew= (id==null);
+        if(isCreateNew) {
+            if(category != null) return false;
+        } else {
+            if(category.getId()!=id) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    private void listChildren(List<Category> categoriesUsedInForm, Category parent, int subLevel) {
+        int newSubLevel = subLevel + 1;
+        Set<Category> children = parent.getChildren();
+
+        for (Category subCategory : children) {
+            String name = "";
+            for (int i = 0; i < newSubLevel; i++) {
+                name += "--";
+            }
+            name += subCategory.getName();
+
+            categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getId(), name));
+
+            listChildren(categoriesUsedInForm, subCategory, newSubLevel);
+        }
+    }
 }

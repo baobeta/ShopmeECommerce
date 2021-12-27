@@ -63,5 +63,19 @@
 		   title="Enable this category"
 		></a>
 	</div>
+
+	<div th:fragment="category_actions" th:remove="tag">
+		<a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${category.id}}"
+		   title="Edit this user"></a>
+		&nbsp;
+		<a class="fas fa-trash fa-2x icon-dark link-delete"
+		   th:href="@{'/categories/delete/' + ${category.id}}"
+		   th:userId="${category.id}"
+		   title="Delete this user"></a>
+	</div>
+
+
+
+
 </body>
 </html>

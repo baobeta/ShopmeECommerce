@@ -21,28 +21,28 @@ public class TestRoleRepository {
 	@Autowired
 	private RoleRepository repo;
 	
-	@Test
-	public void testCreateFirstRole() {
-		Role roleAdmin = new Role("Admin", "manage everything");
-		Role saveRole = repo.save(roleAdmin);
-		assertThat(saveRole.getId()).isGreaterThan(0);
-	}
+//	@Test
+//	public void testCreateFirstRole() {
+//		Role roleAdmin = new Role("Admin", "manage everything");
+//		Role saveRole = repo.save(roleAdmin);
+//		assertThat(saveRole.getId()).isGreaterThan(0);
+//	}
 	
-	@Test
-	public void testCreateRestRole() {
-		Role roleAdmin = new Role("Admin", "manage everything");
-		Role roleSalesperson = new Role("Salesperson", "many product price, "+
-							"customer, shipping, order and sales report");
-		Role roleEditor = new Role("Editor", "manage categories, brands" +
-							", products, acticles and menus");
-		Role roleShiper = new Role("Shiper", "view products, view orders"+
-							" and update order status");
-		Role roleAssistant = new Role("Assistant","manage questions and reviews");
-		
-		repo.saveAll(List.of(roleAdmin,roleSalesperson,roleEditor,roleShiper,roleAssistant));
-		
-		
-	}
+//	@Test
+//	public void testCreateRestRole() {
+//		Role roleAdmin = new Role("Admin", "manage everything");
+//		Role roleSalesperson = new Role("Salesperson", "many product price, "+
+//							"customer, shipping, order and sales report");
+//		Role roleEditor = new Role("Editor", "manage categories, brands" +
+//							", products, acticles and menus");
+//		Role roleShiper = new Role("Shiper", "view products, view orders"+
+//							" and update order status");
+//		Role roleAssistant = new Role("Assistant","manage questions and reviews");
+//
+//		repo.saveAll(List.of(roleAdmin,roleSalesperson,roleEditor,roleShiper,roleAssistant));
+//
+//
+//	}
 
 	
 

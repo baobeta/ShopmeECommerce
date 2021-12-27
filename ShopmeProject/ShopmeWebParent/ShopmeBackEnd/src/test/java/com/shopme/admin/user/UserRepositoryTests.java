@@ -28,126 +28,126 @@ public class UserRepositoryTests {
 	@Autowired
 	private TestEntityManager entityManager;
 	
-	@Test
-	public void testCreateNewUserWithOneRole() {
-		Role roleAdmin = entityManager.find(Role.class, 1);
-		User userBaoLe = new User("baodepz@gmail.com","123456","Bao","Quoc Le");
-		userBaoLe.addRole(roleAdmin);
-		
-		User saveUser = repo.save(userBaoLe);
-		
-		assertThat(saveUser.getId()).isGreaterThan(0);
-	}
-	
-	@Test
-	public void testCreateNewUserWithTwoRole() {
-		User userRavi = new User("baodeptrai@Gamil.com","123456", "Bao","Beta");
-		
-		Role roleEditor = new Role(3);
-		Role roleAssistant = new Role(5);
-		
-		userRavi.addRole(roleEditor);
-		userRavi.addRole(roleAssistant);
-		
-		User savedUser = repo.save(userRavi);
-		
-		assertThat(savedUser.getId()).isGreaterThan(0);
-	}
-	@Test
-	public void testListAllUsers() {
-		Iterable<User> listUsers = repo.findAll();
-		listUsers.forEach(user->System.out.println(user));
-	}
-	
-	@Test
-	public void testGetUserById() {
-		User userNam = repo.findById(1).get();
-		System.out.println(userNam);
-		assertThat(userNam).isNotNull();
-	}
-	
-	@Test
-	public void testUpdateUserDetails() {
-		User userNam = repo.findById(1).get();
-		userNam.setEnabled(true);
-		userNam.setEmail("baoprogramer@gmail.com");
-		repo.save(userNam);
-	}
-	
-	@Test
-	public void testUpdateUserRoles() {
-		User userRavi = repo.findById(2).get();
-		Role roleEditor = new Role(3);
-		Role roleSalesperson = new Role(2);
-		userRavi.getRoles().remove(roleEditor);
-		userRavi.addRole(roleSalesperson);
-		repo.save(userRavi);
-		
-	}
-	@Test 
-	public void testDeleteUser() {
-		repo.deleteById(3);
-		repo.deleteById(4);
-	}
-	
-	@Test
-	public void testGetUserByEmail() {
-		String email = "cuongdola@gmail.com";
-		User user = repo.getUserByEmail(email);
-		assertThat(user).isNotNull();
-	}
-	
-	@Test
-	public void testCountById() {
-		Integer id =1;
-		Long countById = repo.countById(id);
-		assertThat(countById).isNotNull().isGreaterThan(0);
-		
-	}
-	
-	@Test 
-	public void testDisableUser() {
-		Integer id = 1;
-		repo.updateEnabledStatus(id, false);
-	}
-	@Test 
-	public void testEnableUser() {
-		Integer id = 2;
-		repo.updateEnabledStatus(id, true);
-	}
-	@Test
-	public void testFirstpage() {
-		int pageNumber=0;
-		int pageSize =4;
-		
-		Pageable pageable =PageRequest.of(pageNumber,pageSize);
-		Page<User> page = repo.findAll(pageable);
-		
-		List<User> listUsers = page.getContent();
-		
-		listUsers.forEach(user->System.out.println(user));
-		
-		assertThat(listUsers.size()).isEqualTo(pageSize);
-		
-	}
-	
-	@Test
-	public void testSearchUsers() {
-		String keyword = "bruce";
-		int pageNumber=0;
-		int pageSize =4;
-		
-		Pageable pageable =PageRequest.of(pageNumber,pageSize);
-		Page<User> page = repo.findAll(keyword,pageable);
-		
-		List<User> listUsers = page.getContent();
-		
-		listUsers.forEach(user->System.out.println(user));
-		
-		assertThat(listUsers.size()).isGreaterThan(0);
-		
-		
-	}
+//	@Test
+//	public void testCreateNewUserWithOneRole() {
+//		Role roleAdmin = entityManager.find(Role.class, 1);
+//		User userBaoLe = new User("baodepz@gmail.com","123456","Bao","Quoc Le");
+//		userBaoLe.addRole(roleAdmin);
+//
+//		User saveUser = repo.save(userBaoLe);
+//
+//		assertThat(saveUser.getId()).isGreaterThan(0);
+//	}
+//
+//	@Test
+//	public void testCreateNewUserWithTwoRole() {
+//		User userRavi = new User("baodeptrai@Gamil.com","123456", "Bao","Beta");
+//
+//		Role roleEditor = new Role(3);
+//		Role roleAssistant = new Role(5);
+//
+//		userRavi.addRole(roleEditor);
+//		userRavi.addRole(roleAssistant);
+//
+//		User savedUser = repo.save(userRavi);
+//
+//		assertThat(savedUser.getId()).isGreaterThan(0);
+//	}
+//	@Test
+//	public void testListAllUsers() {
+//		Iterable<User> listUsers = repo.findAll();
+//		listUsers.forEach(user->System.out.println(user));
+//	}
+//
+//	@Test
+//	public void testGetUserById() {
+//		User userNam = repo.findById(1).get();
+//		System.out.println(userNam);
+//		assertThat(userNam).isNotNull();
+//	}
+//
+//	@Test
+//	public void testUpdateUserDetails() {
+//		User userNam = repo.findById(1).get();
+//		userNam.setEnabled(true);
+//		userNam.setEmail("baoprogramer@gmail.com");
+//		repo.save(userNam);
+//	}
+//
+//	@Test
+//	public void testUpdateUserRoles() {
+//		User userRavi = repo.findById(2).get();
+//		Role roleEditor = new Role(3);
+//		Role roleSalesperson = new Role(2);
+//		userRavi.getRoles().remove(roleEditor);
+//		userRavi.addRole(roleSalesperson);
+//		repo.save(userRavi);
+//
+//	}
+//	@Test
+//	public void testDeleteUser() {
+//		repo.deleteById(3);
+//		repo.deleteById(4);
+//	}
+//
+//	@Test
+//	public void testGetUserByEmail() {
+//		String email = "cuongdola@gmail.com";
+//		User user = repo.getUserByEmail(email);
+//		assertThat(user).isNotNull();
+//	}
+//
+//	@Test
+//	public void testCountById() {
+//		Integer id =1;
+//		Long countById = repo.countById(id);
+//		assertThat(countById).isNotNull().isGreaterThan(0);
+//
+//	}
+//
+//	@Test
+//	public void testDisableUser() {
+//		Integer id = 1;
+//		repo.updateEnabledStatus(id, false);
+//	}
+//	@Test
+//	public void testEnableUser() {
+//		Integer id = 2;
+//		repo.updateEnabledStatus(id, true);
+//	}
+//	@Test
+//	public void testFirstpage() {
+//		int pageNumber=0;
+//		int pageSize =4;
+//
+//		Pageable pageable =PageRequest.of(pageNumber,pageSize);
+//		Page<User> page = repo.findAll(pageable);
+//
+//		List<User> listUsers = page.getContent();
+//
+//		listUsers.forEach(user->System.out.println(user));
+//
+//		assertThat(listUsers.size()).isEqualTo(pageSize);
+//
+//	}
+//
+//	@Test
+//	public void testSearchUsers() {
+//		String keyword = "bruce";
+//		int pageNumber=0;
+//		int pageSize =4;
+//
+//		Pageable pageable =PageRequest.of(pageNumber,pageSize);
+//		Page<User> page = repo.findAll(keyword,pageable);
+//
+//		List<User> listUsers = page.getContent();
+//
+//		listUsers.forEach(user->System.out.println(user));
+//
+//		assertThat(listUsers.size()).isGreaterThan(0);
+//
+//
+//	}
 
 
 }
