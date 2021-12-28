@@ -10,12 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
-
-import com.shopme.common.entity.Role;
 import com.shopme.common.entity.User;
 
 @DataJpaTest(showSql = false)
@@ -53,12 +48,12 @@ public class UserRepositoryTests {
 //
 //		assertThat(savedUser.getId()).isGreaterThan(0);
 //	}
-//	@Test
-//	public void testListAllUsers() {
-//		Iterable<User> listUsers = repo.findAll();
-//		listUsers.forEach(user->System.out.println(user));
-//	}
-//
+	@Test
+	public void testListAllUsers() {
+		Iterable<User> listUsers = repo.findAll();
+		listUsers.forEach(user->System.out.println(user));
+	}
+
 //	@Test
 //	public void testGetUserById() {
 //		User userNam = repo.findById(1).get();

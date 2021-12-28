@@ -11,8 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
-import java.util.Set;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+import java.util.List;
 
 
 @DataJpaTest(showSql = false)
@@ -23,18 +23,20 @@ public class CategoryRepositoryTest {
     @Autowired
     private CategoryRepository repo;
 
-    @Autowired
-    private CategoryService service;
+    @Test
+    public void testListAllUsers() {
 
-//
-//    @Test
-//    public void testListAllUsers() {
-//
-//        Pageable pageable = PageRequest.of(1,4);
-//        Page<Category> page = repo.findAll(pageable);
-//        page.forEach(p -> System.out.println(p.getName()));
-//    }
-//
+        Pageable pageable = PageRequest.of(1,4);
+        Page<Category> page = repo.findAll(pageable);
+        page.forEach(p -> System.out.println(p.getName()));
+    }
+
+    @Test
+    public void testRootCategory()  {
+        List<Category> listCategories = repo.findRootCategories();
+        listCategories.forEach(c -> System.out.println(c.getName()));
+    }
+
 //    @Test
 //    public void testCreateRootCategory() throws Exception {
 //        Category category = new Category("Nokia");

@@ -40,7 +40,9 @@ public class CategoryController {
 
         // pagination
         Page<Category> page = service.listByPage(pageNum, sortField, sortDir,keyword);
-        List<Category> listCategories = page.getContent();
+
+        List<Category> listCategories = service.listAll();
+//        List<Category> listCategories = page.getContent();
 
 
         // setup number in button
