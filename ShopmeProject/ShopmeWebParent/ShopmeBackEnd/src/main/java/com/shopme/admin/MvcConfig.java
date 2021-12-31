@@ -22,7 +22,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
 
 
-		String categoryImageDirName = "../category-images";
+		String categoryImageDirName = "category-images";
 		Path categoryImageDir = Paths.get(categoryImageDirName);
 		// config path image
 		String categoryImagePath = categoryImageDir.toFile().getAbsolutePath();

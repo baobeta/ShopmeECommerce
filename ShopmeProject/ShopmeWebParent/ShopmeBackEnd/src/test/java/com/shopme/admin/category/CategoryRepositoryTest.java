@@ -10,9 +10,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 @DataJpaTest(showSql = false)
@@ -33,8 +36,28 @@ public class CategoryRepositoryTest {
 
     @Test
     public void testRootCategory()  {
-        List<Category> listCategories = repo.findRootCategories();
+        List<Category> listCategories = repo.findRootCategories(Sort.by("name"));
         listCategories.forEach(c -> System.out.println(c.getName()));
+    }
+
+    @Test
+    public void testFindByName() {
+        String name = "Computers";
+        Category category = repo.findByName(name);
+
+        assertThat(category).isNotNull();
+        assertThat(category.getName()).isEqualTo(name);
+    }
+
+
+
+    @Test
+    public void testFindByAlias() {
+        String alias = "Electronics";
+        Category category = repo.findByAlias(alias);
+
+        assertThat(category).isNotNull();
+        assertThat(category.getAlias()).isEqualTo(alias);
     }
 
 //    @Test
