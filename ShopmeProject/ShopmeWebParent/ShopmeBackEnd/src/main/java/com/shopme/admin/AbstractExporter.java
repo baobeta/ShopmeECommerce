@@ -1,23 +1,24 @@
-package com.shopme.admin.user.export;
+package com.shopme.admin;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletResponse;
-
 public class AbstractExporter {
 
-	public void setReponseHeader(HttpServletResponse response, String contentType, String extention) throws IOException {
+	public void setResponseHeader(HttpServletResponse response, String contentType,
+								  String extension, String prefix) throws IOException {
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 		String timestamp = dateFormatter.format(new Date());
-		String fileName= "users_"+ timestamp + extention;
-		
+		String fileName = prefix + timestamp + extension;
+
 		response.setContentType(contentType);
-		
+
 		String headerKey = "Content-Disposition";
-		String headerValue = "attachment; filename=" +fileName;
+		String headerValue = "attachment; filename=" + fileName;
 		response.setHeader(headerKey, headerValue);
+
 	}
 }

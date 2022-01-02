@@ -1,27 +1,23 @@
 package com.shopme.admin.user.export;
 
-import java.awt.Color;
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
-import com.lowagie.text.Document;
 import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
+import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import com.shopme.admin.AbstractExporter;
 import com.shopme.common.entity.User;
+
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.io.IOException;
+import java.util.List;
 
 public class UserPdfExporter  extends AbstractExporter {
 	
 	
 	public void export (List<User> listUsers, HttpServletResponse response) throws IOException {
-		super.setReponseHeader(response,"application/pdf",".pdf");
+		super.setResponseHeader(response, "application/pdf", ".pdf", "users_");
 		// create document
 		Document document = new Document(PageSize.A4);
 		PdfWriter.getInstance(document, response.getOutputStream());

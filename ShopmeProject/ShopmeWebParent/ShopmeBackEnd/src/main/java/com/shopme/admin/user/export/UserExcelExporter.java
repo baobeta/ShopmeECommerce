@@ -1,20 +1,14 @@
 package com.shopme.admin.user.export;
 
-import java.io.IOException;
-import java.util.List;
+import com.shopme.admin.AbstractExporter;
+import com.shopme.common.entity.User;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.xssf.usermodel.*;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFFont;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import com.shopme.common.entity.User;
+import java.io.IOException;
+import java.util.List;
 
 public class UserExcelExporter extends AbstractExporter {
 	
@@ -67,7 +61,7 @@ public class UserExcelExporter extends AbstractExporter {
 	
 	
 	public void export(List<User> listUsers, HttpServletResponse response) throws IOException {
-		super.setReponseHeader(response, "application/octec-stream", ".xlsx");
+		super.setResponseHeader(response, "text/csv", ".csv", "users_");
 		
 		writeHeaderLine();
 		writeDataLine(listUsers);
