@@ -14,25 +14,23 @@
 		&nbsp;|&nbsp;
 		<a th:href="@{users/export/pdf}" class="fas fa-file-pdf fa-2x icon-dark"></a>
 	</div>
-	<div th:if="${message != null}" class="alert alert-success text-center">
-		[[${message}]]
-	</div>
 
-	<div th:replace="fragments :: search_form('/users/page/1')"/>
+
+	<div th:replace="fragments :: search_form_and_message('/users/page/1')"/>
 	
 	<div class="full-details">
 		<table  class="table table-bordered table-striped table-hover table-reponsive-xl">
 			<thead class="thead-dark" >
 				<tr>
 					<th class="hideable-column">
-					<th th:replace="fragments :: column_link('id', 'User ID','tag','users')"/></th>
+					<th th:replace="fragments :: column_link('/users','id', 'User ID','tag')"/></th>
 					<th>Photos</th>
 					<th class="hideable-column">
-					<th th:replace="fragments :: column_link('email', 'Email','tag','users')"/></th>
-					<th th:replace="fragments :: column_link('firstName', 'First Name','none','users')"/>
-					<th th:replace="fragments :: column_link('lastName', 'Last Name','none','users')"/>
+					<th th:replace="fragments :: column_link('/users','email', 'Email','tag')"/></th>
+					<th th:replace="fragments :: column_link('/users','firstName', 'First Name','none')"/>
+					<th th:replace="fragments :: column_link('/users','lastName', 'Last Name','none')"/>
 					<th>Role</th>
-					<th th:replace="fragments :: column_link('enabled', 'Enable','none','users')"/>
+					<th th:replace="fragments :: column_link('/users','enabled', 'Enable','none')"/>
 					<th></th>
 				</tr>
 			</thead>
@@ -52,11 +50,13 @@
 					<td>[[${user.roles}]]</td>
 
 					<td>
-						<div th:replace="fragments :: user_status" />
+						<div th:replace="fragments :: status(${user.enabled}, 'user', '/users/' + ${user.id})" />
 					</td>
 
 					<td>
-						<div th:replace="fragments :: user_actions" />
+						<div th:replace="fragments :: edit('user','/users/edit/' + ${user.id})" />
+						<div th:replace="fragments :: delete('user',${user.id},'/users/edit/' + ${user.id},true)" />
+
 					</td>
 
 				</tr>
@@ -72,9 +72,11 @@
 				<div>[[${user.fullName}]]</div>
 				<div>[[${user.roles}]]</div>
 				<div class="mt-2">
-					<div th:replace="fragments :: user_status" />
+					<div th:replace="fragments :: status(${user.enabled}, 'user', '/users/' + ${user.id})" />
 					&nbsp;
-					<div th:replace="fragments :: user_actions" />
+					<div th:replace="fragments :: edit('user','/users/edit/' + ${user.id})" />
+					&nbsp;
+					<div th:replace="fragments :: delete('user',${user.id},'/users/edit/' + ${user.id},true)" />
 				</div>
 			</div>
 			<div>&nbsp;</div>
@@ -111,24 +113,16 @@
 
 
 
+<script th:src="@{/js/common_list.js}"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$(".link-delete").on("click",function(e) {
-			e.preventDefault();
-			link = $(this);
-			//alert($(this).attr("href"));
-			userId = link.attr("userId");
-			$("#yesButton").attr("href",link.attr("href"));
-			$("#confirmText").text("Are you sure you want to delete this ID "+ userId+" ?");
-			$("#confirmModal").modal();
-		});
-		
+	moduleURL = "[[@{/users}]]";
 
+	$(document).ready(function() {
+		$(".link-delete").on("click", function(e) {
+			e.preventDefault();
+			showDeleteConfirmModal($(this), 'user');
+		});
 	});
-	
-	function clearFilter() {
-			window.location ="[[@{/users}]]";
-	}
-</script>	
+</script>
 </body>
 </html>
