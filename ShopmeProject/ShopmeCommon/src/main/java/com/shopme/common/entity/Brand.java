@@ -25,6 +25,15 @@ public class Brand {
     )
     private Set<Category> categories = new HashSet<>();
 
+    public Brand() {
+
+    }
+
+    public Brand(String name) {
+        this.name = name;
+        this.logo="brand-logo.png";
+    }
+
     public Integer getId() {
         return id;
     }
@@ -73,4 +82,9 @@ public class Brand {
 
         return "/brand-logos/" + this.id + "/" + this.logo;
     }
+    public Brand(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
 }
