@@ -29,8 +29,8 @@ public class Product {
 
     private boolean enabled;
 
-    @Column(name="in_stock")
-    private boolean isStock;
+    @Column(name = "in_stock")
+    private boolean inStock;
 
 
     private float cost;
@@ -117,13 +117,6 @@ public class Product {
         this.enabled = enabled;
     }
 
-    public boolean isStock() {
-        return isStock;
-    }
-
-    public void setStock(boolean stock) {
-        isStock = stock;
-    }
 
     public float getCost() {
         return cost;
@@ -203,5 +196,13 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public boolean isInStock() {
+        return inStock;
+    }
+
+    public void setInStock(boolean inStock) {
+        this.inStock = inStock;
     }
 }

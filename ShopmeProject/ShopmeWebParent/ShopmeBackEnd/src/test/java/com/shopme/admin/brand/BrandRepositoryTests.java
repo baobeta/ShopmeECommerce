@@ -59,7 +59,7 @@ public class BrandRepositoryTests {
     public void findAllTest() {
         List<Brand> brand = (List<Brand>) repo.findAll();
         brand.forEach(b->System.out.println(b.getId()+" "+b.getName()+" "+b.getCategories().toString()));
-
+        assertThat(brand).isNotEmpty();
     }
 
     @Test
