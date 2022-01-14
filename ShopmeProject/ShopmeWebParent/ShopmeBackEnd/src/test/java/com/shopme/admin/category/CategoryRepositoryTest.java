@@ -1,21 +1,10 @@
 package com.shopme.admin.category;
 
 
-import com.shopme.common.entity.Category;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
-
-import java.util.List;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 @DataJpaTest(showSql = false)
@@ -23,42 +12,42 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @Rollback(false)
 public class CategoryRepositoryTest {
 
-    @Autowired
-    private CategoryRepository repo;
-
-    @Test
-    public void testListAllUsers() {
-
-        Pageable pageable = PageRequest.of(1,4);
-        Page<Category> page = repo.findAll(pageable);
-        page.forEach(p -> System.out.println(p.getName()));
-    }
-
-    @Test
-    public void testRootCategory()  {
-        List<Category> listCategories = repo.findRootCategories(Sort.by("name"));
-        listCategories.forEach(c -> System.out.println(c.getName()));
-    }
-
-    @Test
-    public void testFindByName() {
-        String name = "Computers";
-        Category category = repo.findByName(name);
-
-        assertThat(category).isNotNull();
-        assertThat(category.getName()).isEqualTo(name);
-    }
-
-
-
-    @Test
-    public void testFindByAlias() {
-        String alias = "Electronics";
-        Category category = repo.findByAlias(alias);
-
-        assertThat(category).isNotNull();
-        assertThat(category.getAlias()).isEqualTo(alias);
-    }
+//    @Autowired
+//    private CategoryRepository repo;
+//
+//    @Test
+//    public void testListAllUsers() {
+//
+//        Pageable pageable = PageRequest.of(1,4);
+//        Page<Category> page = repo.findAll(pageable);
+//        page.forEach(p -> System.out.println(p.getName()));
+//    }
+//
+//    @Test
+//    public void testRootCategory()  {
+//        List<Category> listCategories = repo.findRootCategories(Sort.by("name"));
+//        listCategories.forEach(c -> System.out.println(c.getName()));
+//    }
+//
+//    @Test
+//    public void testFindByName() {
+//        String name = "Computers";
+//        Category category = repo.findByName(name);
+//
+//        assertThat(category).isNotNull();
+//        assertThat(category.getName()).isEqualTo(name);
+//    }
+//
+//
+//
+//    @Test
+//    public void testFindByAlias() {
+//        String alias = "Electronics";
+//        Category category = repo.findByAlias(alias);
+//
+//        assertThat(category).isNotNull();
+//        assertThat(category.getAlias()).isEqualTo(alias);
+//    }
 
 //    @Test
 //    public void testCreateRootCategory() throws Exception {
