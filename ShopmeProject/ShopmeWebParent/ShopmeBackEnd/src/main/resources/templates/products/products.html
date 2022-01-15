@@ -1,80 +1,74 @@
 <!DOCTYPE html>
 <html xmls:th="http://www.thymeleaf.org" xmlns:xmls="http://www.w3.org/1999/xhtml">
-<head th:replace="fragments :: page_head('Product - Shopme Admin','none')" />
+<head th:replace="fragments :: page_head('Product - Shopme Admin','none')"/>
 <body>
 <div class="container-fluid">
-  <div th:replace="navigation :: menu"></div>
-  <div>
-    <h2>Manage Products</h2>
-    <a th:href="@{/products/new}" class="fas fa-user-plus fa-2x icon-dark"> </a>
-    &nbsp;|&nbsp;
-    <a th:href="@{users/export/csv}" class="fas fa-file-csv fa-2x icon-dark"></a>
-  </div>
+    <div th:replace="navigation :: menu"></div>
+    <div>
+        <h2>Manage Products</h2>
+        <a th:href="@{/products/new}" class="fas fa-user-plus fa-2x icon-dark"> </a>
+        &nbsp;|&nbsp;
+        <a th:href="@{users/export/csv}" class="fas fa-file-csv fa-2x icon-dark"></a>
+    </div>
+
+    <div th:replace="fragments :: search_form_and_message('/products/page/1')"/>
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-reponsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th> ID</th>
+                <th>Main Image</th>
+                <th>Product Name</th>
+                <th>Brand</th>
+                <th>Category</th>
+                <th>Enabled</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="product : ${listProducts}">
+                <td>[[${product.id}]]</td>
+                <td></td>
+                <td>[[${product.name}]]</td>
+                <td>[[${product.brand.name}]]</td>
+                <td>[[${product.category.name}]]</td>
+                <td>[[${product.enabled}]]</td>
+                <td>
+                    <div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})"/>
+                </td>
+                <td>
+                    <a class="fas fa-file-alt fa-2x icon-green" th:href="@{'/product/detail/'+${product.id}}"
+                       title="View detail of this product"></a>
+                    <div th:replace="fragments :: edit('product','/products/edit/' + ${product.id})"/>
+                    <div th:replace="fragments :: delete('product',${product.id},'/products/edit/' + ${product.id},true)"/>
+                </td>
+            </tr>
+            </tbody>
 
 
-  <div th:replace="fragments :: search_form_and_message('/products/page/1')"/>
-
-  <div class="full-details">
-    <table  class="table table-bordered table-striped table-hover table-reponsive-xl">
-      <thead class="thead-dark" >
-      <tr>
-        <th> ID</th>
-        <th>Main Image</th>
-        <th>Product Name</th>
-        <th>Brand</th>
-        <th>Category</th>
-        <th>Enabled</th>
-        <th></th>
-        <td></td>
-        <td></td>
-
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr th:each="product : ${listProducts}">
-        <td>[[${product.id}]]</td>
-        <td></td>
-        <td>[[${product.name}]]</td>
-        <td>[[${product.brand.name}]]</td>
-        <td>[[${product.category.name}]]</td>
-        <td>[[${product.enabled}]]</td>
-        <td>
-          <div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})" />
-        </td>
-        <td>
-          <a class="fas fa-file-alt fa-2x icon-green" th:href="@{'/product/detail/'+${product.id}}"
-          title="View detail of this product"></a>
-          <div th:replace="fragments :: edit('product','/products/edit/' + ${product.id})" />
-          <div th:replace="fragments :: delete('product',${product.id},'/products/edit/' + ${product.id},true)" />
-
-        </td>
-
-      </tr>
-      </tbody>
-    </table>
-  </div>
+        </table>
+    </div>
 
 
-
-
-  <div th:replace="modal_fragments :: confirm_modal" />
-  <div th:replace="fragments :: footer"></div>
+    <div th:replace="modal_fragments :: confirm_modal"/>
+    <div th:replace="fragments :: footer"></div>
 
 </div>
 
 
-
 <script th:src="@{/js/common_list.js}"></script>
 <script type="text/javascript">
-  moduleURL = "[[@{/products}]]";
+    moduleURL = "[[@{/products}]]";
 
-  $(document).ready(function() {
-    $(".link-delete").on("click", function(e) {
-      e.preventDefault();
-      showDeleteConfirmModal($(this), 'products');
+    $(document).ready(function () {
+        $(".link-delete").on("click", function (e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this), 'products');
+        });
     });
-  });
 </script>
 </body>
 </html>
