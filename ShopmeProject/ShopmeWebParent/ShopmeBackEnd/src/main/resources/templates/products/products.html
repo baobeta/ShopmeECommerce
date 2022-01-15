@@ -24,7 +24,6 @@
                 <th>Category</th>
                 <th>Enabled</th>
                 <th></th>
-                <th></th>
             </tr>
             </thead>
 
@@ -35,7 +34,6 @@
                 <td>[[${product.name}]]</td>
                 <td>[[${product.brand.name}]]</td>
                 <td>[[${product.category.name}]]</td>
-                <td>[[${product.enabled}]]</td>
                 <td>
                     <div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})"/>
                 </td>
