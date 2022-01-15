@@ -1,6 +1,7 @@
 package com.shopme.admin.product.controller;
 
 import com.shopme.admin.brand.BrandService;
+import com.shopme.admin.product.ProductNotFoundException;
 import com.shopme.admin.product.ProductService;
 import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Product;
@@ -57,6 +58,22 @@ public class ProductController {
         String status = enabled ? "enabled" : "disabled";
         String message = "The Product ID " + id + " has been " + status;
         redirectAttributes.addFlashAttribute("message", message);
+
+        return "redirect:/products";
+    }
+
+    @GetMapping("/products/delete/{id}")
+    public String deleteProduct(@PathVariable(name = "id") Integer id,
+                                Model model,
+                                RedirectAttributes redirectAttributes) {
+        try {
+            productService.delete(id);
+
+            redirectAttributes.addFlashAttribute("message",
+                    "The product ID " + id + " has been deleted successfully");
+        } catch (ProductNotFoundException ex) {
+            redirectAttributes.addFlashAttribute("message", ex.getMessage());
+        }
 
         return "redirect:/products";
     }
