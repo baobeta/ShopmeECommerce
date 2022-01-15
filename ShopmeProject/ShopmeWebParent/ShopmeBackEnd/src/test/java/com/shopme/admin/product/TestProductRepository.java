@@ -1,18 +1,37 @@
 package com.shopme.admin.product;
 
 
+import com.shopme.common.entity.Product;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
+
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(false)
 public class TestProductRepository {
 
-//    @Autowired
-//    private ProductRepository repo;
-//
+
+    @Test
+    public void testSaveProductWithImages() {
+       Integer productId =1;
+        Product product = repo.findById(productId).get();
+        product.setMainImage("main image.jpg");
+        product.addExtraImage("extra_image_1.jpg");
+        product.addExtraImage("extra_image_2.jpg");
+        product.addExtraImage("extra_image_3.jpg");
+
+        Product save = repo.save(product);
+        assertThat(save.getImages().size()).isEqualTo(3);
+    }
+
+    @Autowired
+    private ProductRepository repo;
+
 //    @Autowired
 //    private TestEntityManager entityManager;
 //
